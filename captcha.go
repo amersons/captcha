@@ -48,6 +48,7 @@ package captcha
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"time"
 )
@@ -136,6 +137,7 @@ func Verify(id string, digits []byte) bool {
 		return false
 	}
 	reald := globalStore.Get(id, true)
+	fmt.Println("=====Verify", id, digits, reald)
 	if reald == nil {
 		return false
 	}
@@ -157,6 +159,7 @@ func VerifyString(id string, digits string) bool {
 			ns[i] = d - '0'
 		case d == ' ' || d == ',':
 			// ignore
+			fmt.Println("=====VerifyString false", id, digits, d)
 		default:
 			return false
 		}
